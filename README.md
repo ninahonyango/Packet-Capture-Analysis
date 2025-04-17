@@ -298,21 +298,21 @@ As illustrated in the screenshot below:
 
 1. The first command creates a file named usernames.txt in the home directory, containing:
 
-  - msfadmin
+   - msfadmin
 
-  - ftp
+   - ftp
 
-  - anonymous
+   - anonymous
 
 2. The second command creates a file named passwords.txt, containing:
 
-  - msfadmin
+   - msfadmin
 
-  - admin
+   - admin
 
-  - 123456
+   - 123456
 
-  - password
+   - password
 
 The ```-e``` flag with echo enables interpretation of backslash-escaped characters ```\n``` to format the entries on separate lines.
 
@@ -638,8 +638,6 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
   - `STOR secret.txt` for file upload.
   - `STOR confidential.pdf` for file upload.
 
-#### 📋 Sample Extract (Interpretation):
-
 #### 📋 Sample Extract:
 
 ![Screenshot On Flow Graph Attack Timeline](images/flowGraph.png)
@@ -672,7 +670,7 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
 
 #### ⚠️ Analysis:
 
-  The captured flow graph clearly demonstrates a brute-force FTP login attack through repeated authentication attempts over TCP port 21. The repeated PSH, ACK exchanges with varying payload sizes suggest systematic username/password guessing, with sessions being rapidly established and closed.
+ - The captured flow graph clearly demonstrates a brute-force FTP login attack through repeated authentication attempts over TCP port 21. The repeated PSH, ACK exchanges with varying payload sizes suggest systematic username/password guessing, with sessions being rapidly established and closed.
 
 ---
 
