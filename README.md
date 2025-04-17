@@ -422,7 +422,7 @@ put secret.txt
 
 From the screenshot above, 
 
-1. 200 PORT command successful - This means the client has told the server which IP and port to use for the upcoming data transfer, and the server accepted it.
+1. 229 Entering Extended Passive Mode (|||33265|) - The server responds that it is switching to Extended Passive Mode (EPSV). The server opens a port `33265`, and the client connects to that server port to send the file.
 
 2. 150 Ok to send data - The server is now preparing to transfer the file.
 
@@ -445,7 +445,7 @@ The screenshot below illustrates the data exfiltration process:
 
 Breakdown:
 
-1. 200 PORT command successful. — The server accepted the data transfer setup.
+1. 229 Entering Extended Passive Mode (|||53459|) - The server responds that it is switching to Extended Passive Mode (EPSV).The server opens a port `53459`, and the client connects to that server port to send the file.
 
 2. 150 Opening BINARY mode... — The server began transferring the file in binary mode.
 
