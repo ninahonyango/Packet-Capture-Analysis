@@ -707,28 +707,6 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
 
 ## 📎 Appendices
 
-### 📁 Appendix A: Tools Used
-
-- **Wireshark** – For capturing and analyzing network traffic.  
-- **Hydra** – To perform brute-force attacks on the FTP service.  
-- **Kali Linux** – As the attacker's operating system environment.  
-- **Metasploitable2** – As the target system with vulnerable services.
-
-
-### 📸 Appendix C: Screenshots
-
-- **Wireshark Flow Graph** – Visual representation of the attack timeline.
-
-- **FTP Login Attempts** – Captured packets showing multiple login attempts.
-
-- **File Transfer Attempts** – Packets illustrating file upload and download commands.
-
-### 📂 Appendix D: PCAP File
-
-Download Link: bruteForce.pcapng
-
-## 📎 Appendices
-
   #### A. Tools Used
 
   | Tool             | Purpose                     |
@@ -762,6 +740,9 @@ Download Link: bruteForce.pcapng
   ```
   ftp.request.command == "STOR"
   ```
+  
   #### D. PCAP File
 
   Download Link: bruteForce.pcapng
+
+---
