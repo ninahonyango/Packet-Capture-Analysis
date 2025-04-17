@@ -640,17 +640,40 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
 
 #### 📋 Sample Extract (Interpretation):
 
-```plaintext
-192.168.56.101 → 192.168.56.102   USER msfadmin
-192.168.56.101 → 192.168.56.102   PASS msfadmin
-192.168.56.102 → 192.168.56.101   230 Login successful
+#### 📋 Sample Extract:
 
-192.168.56.101 → 192.168.56.102   STOR secret.txt
-192.168.56.102 → 192.168.56.101   226 Transfer complete
+![Screenshot On Flow Graph Attack Timeline](images/flowGraph.png)
 
-192.168.56.101 → 192.168.56.102   STOR confidential.pdf
-192.168.56.102 → 192.168.56.101   226 Transfer complete
-```
+![Screenshot On Flow Graph Attack Timeline](images/flowGraph2.png)
+
+#### 📈 Key Observations:
+
+ - Numerous SYN packets were sent in quick succession, indicating repeated attempts to initiate TCP connections to port 21.
+
+ - For each SYN, the server responded with a SYN-ACK, and the attacker completed the handshake with an ACK.
+
+ - Following the TCP handshake, the attacker sent PSH, ACK packets containing data payloads (likely login attempts).
+
+ - The payload sizes vary (Len: 15, 22, 34, etc.), suggesting different combinations of username/passwords or command inputs.
+
+ - This pattern repeated with high frequency and volume, consistent with brute-force behavior.
+
+#### 🧠 Technical Indicators:
+
+ - Target Port: 21 (FTP)
+
+ - Flow Pattern: SYN → SYN-ACK → ACK → PSH/ACK (Payload) → ACK
+
+ - Payload Variants: Multiple data lengths (13, 15, 26 bytes) were used during login attempts.
+
+ - Session Closure: Frequent use of FIN-ACK and RST packets, signaling either completion or interruption of sessions—also typical of failed brute-force login loops.
+
+ - New Connections: After many failed attempts, new connection attempts were observed from different source ports (e.g., 44822, 44824…), pointing to rotation in session attempts.
+
+#### ⚠️ Analysis:
+
+  The captured flow graph clearly demonstrates a brute-force FTP login attack through repeated authentication attempts over TCP port 21. The repeated PSH, ACK exchanges with varying payload sizes suggest systematic username/password guessing, with sessions being rapidly established and closed.
+
 ---
 
 ## 📘 Conclusion
