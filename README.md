@@ -745,8 +745,8 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
 
   | System             | IP Address                     |
   |-------------------|----------------------------------|
-  | Kali Linux            | 192.168.56.101       |
-  | Metasploitable2       | 192.168.56.102       |
+  | Kali Linux            | `192.168.56.101`       |
+  | Metasploitable2       | `192.168.56.102`       |
 
 
   #### D. PCAP File
