@@ -653,7 +653,7 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
 ```
 ---
 
-## 📘 Conclusion, Findings & Remediation Measures
+## 📘 Conclusion
 
 This project successfully demonstrated the process of capturing and analyzing network traffic to detect and investigate a brute-force FTP attack. By utilizing tools like Wireshark and Hydra, we were able to identify unauthorized access attempts, successful logins, and subsequent file transfer activities. The analysis provided valuable insights into the attack's methodology and highlighted the importance of continuous network monitoring and analysis in cybersecurity.
 
@@ -704,6 +704,8 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
 
 8. **Regular Security Assessments**  
    Conduct vulnerability scans and penetration testing to identify weak points in your authentication mechanisms.
+
+---
 
 ## 📎 Appendices
 
