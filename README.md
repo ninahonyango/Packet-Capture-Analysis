@@ -445,7 +445,7 @@ The screenshot below illustrates the data exfiltration process:
 
 Breakdown:
 
-1. 229 Entering Extended Passive Mode (|||53459|) - The server responds that it is switching to Extended Passive Mode (EPSV).The server opens a port `53459`, and the client connects to that server port to send the file.
+1. 229 Entering Extended Passive Mode (|||53459|) - The server responds that it is switching to Extended Passive Mode (EPSV).The server opens a port `53459`, and the client connects to that server port.
 
 2. 150 Opening BINARY mode... — The server began transferring the file in binary mode.
 
