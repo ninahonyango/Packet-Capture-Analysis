@@ -725,6 +725,12 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   | Kali Linux            | 192.168.56.101       |
   | Metasploitable2       | 192.168.56.102       |
 
+
+  #### D. PCAP File
+
+  Download Link: bruteForce.pcapng
+
+
   #### C. Sample Commands
 
 - **Hydra Command**:
@@ -736,13 +742,10 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   ```
   ftp || ftp-data
   ```
+
 - **FTP Request Command**:
   ```
   ftp.request.command == "STOR"
   ```
-  
-  #### D. PCAP File
-
-  Download Link: bruteForce.pcapng
 
 ---
