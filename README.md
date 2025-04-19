@@ -69,7 +69,7 @@ In this hands-on project, I simulated a brute-force attack on an FTP server and 
 
 This configuration ensures that both virtual machines are on the same isolated network segment, enabling seamless communication between the attacker (Kali Linux) and the target (Metasploitable 2) while keeping the setup secure from external threats.
 
-To ensure secure and isolated communication between the attacker and target machine, the network was configured using VirtualBox's "Host-Only Adapter" mode. This setup allows both virtual machines to interact with each other without any external internet access — an ideal environment for penetration testing.
+To ensure secure and isolated communication between the attacker and target machine, the network was configured using VirtualBox's "Host-Only Adapter" mode. This setup allows both virtual machines to interact with each other without any external internet access.
 
 
 #### 🔎 Verifying Connectivity:
@@ -91,27 +91,24 @@ The successful response from Kali terminal as shown in the screenshot below, con
 
 ### Step 2: 📹 Start Capturing Network Traffic
 
-To monitor and analyze the network activity associated with the simulated brute-force attack and FTP data transfer, I used Wireshark to capture live traffic on the network interface.
+To monitor and analyze the network activity associated with the simulated brute-force attack and FTP data transfer, Wireshark was used to capture live traffic on the network interface.
 
 ----
 
 #### 2.1 Launch Wireshark On Kali Linux
 
-On the Kali Linux machine, Wireshark was launched by running:
+On the Kali Linux machine, launch Wireshark by running:
 
 ```
 sudo wireshark 
 ```
 
-Used ```sudo``` because Wireshark needs root privileges to capture packets, which prompted password for user ```kali``` as illustrated in frame 1 of the screenshot below. After submitting the correct password, wireshark launched as seen in frame 2: 
+I used ```sudo``` because Wireshark needs root privileges to capture packets, which prompted password for user ```kali``` as illustrated in frame 1 of the screenshot below. After submitting the correct password, wireshark launched as seen in frame 2: 
 
 ![Screenshot on the Right Network Interface Wireshark Selection](images/wiresharkInterface2.png)
 *Screenshot on launching Wireshark in Frame 1, and Wireshark automatically launching thereafter in Frame 2.*
 
-I then selected the appropriate network interface ```eth0``` used to communicate with the Metasploitable machine as shown below:
-
-![Screenshot on Selecting the right network interface](images/wiresharkInterface.png)
-*Screenshot on selecting the right netwotk interface in Wireshark.*
+I then selected the appropriate network interface ```eth0``` used to communicate with the Metasploitable 2 VM.
 
 For this project, I started capturing on interface ```eth0``` as this is how Kali was set up. I then clicked the Start Capture button (blue shark fin icon) to start the capture.
 
@@ -124,11 +121,13 @@ As illustrated below, Wireshark was ready and waiting to record all incoming and
 
 #### 2.2 Testing the Correct Network Interface in Wireshark.
 
-After launching Wireshark and selecting the correct network interface, I tested the network interface chosen by pinging Metaspoiltable target IP in Kali terminal:
+After launching Wireshark, selecting the correct network interface and starting the packet capture, I tested the network interface chosen by pinging Metaspoiltable target IP in Kali terminal:
 
 ```
 ping 192.168.56.102
 ```
+
+As shown below:
 
 ![Screenshot on Testing the Network Interface Selected](images/testWireshark.png)
 *Screenshot on testing the network interface `eth0` selected.*
@@ -145,7 +144,7 @@ This confirms that the interface is actively capturing traffic to/from the targe
 
 Keep wireshark up and running all through the attack so as to capture and record all traffic, including authentication attempts, login credentials, and file transfers for analysis in the later stages.
 
-This step was essential to simulate and observe how real-world network attacks can be identified through packet-level inspection, making it a core part of the analysis phase in step 5.
+This step was essential to simulate and observe how real-world network attacks can be identified through packet-level inspection, making it a core part of analysis phase in the later stages.
 
 ---
 
@@ -154,13 +153,13 @@ This step was essential to simulate and observe how real-world network attacks c
 With Wireshark actively capturing traffic in the background, I proceeded to launch a Hydra brute-force attack on the FTP service hosted on Metasploitable 2, followed by manual FTP login and file transfer operations.
 
 ---
-#### 3.1 Launch Hydra to Brute-Force FTP Login
+#### 3.1 ✅ Launch Hydra to Brute-Force FTP Login
 
-In this step, I performed a simulated brute-force attack against an FTP service running on the vulnerable Metasploitable 2 machine. 
+In this step, a simulated brute-force attack was performed against an FTP service running on the vulnerable Metasploitable 2 machine. 
 
 The goal was to demonstrate how weak credentials can be discovered using automated tools, and to capture this attack in Wireshark for forensic analysis.
 
-Started by running the following command in Kali Linux terminal:
+I started by running the following command in Kali Linux terminal:
 
 ```
 hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ftp://192.168.56.102
@@ -190,13 +189,13 @@ From the illustration above, a message can be seen:
 
 This means that Hydra couldn’t find the rockyou.txt wordlist at the path specified. This happens in fresh Kali Linux installs because rockyou.txt is not extracted by default. So it needed to be extracted first.
 
-To extract rockyou.txt wordlist, I executed the following command to navigate to the directory where rockyou.txt is compressed:
+To extract rockyou.txt wordlist, the following command was executed to navigate to the directory where rockyou.txt is compressed:
 
 ```
 cd /usr/share/wordlists
 ```
 
-After navigating to the directory, I extracted rockyou.txt.gz (the compressed file) by executing:
+After navigating to the directory, rockyou.txt.gz (the compressed file) was extracted by running:
 
 ```
 sudo gunzip rockyou.txt.gz
@@ -227,33 +226,34 @@ When demonstrating brute force attacks for educational or portfolio purposes, us
 
 The ```rockyou.txt``` is classic, but very huge. It has 14+ million passwords, and Hydra will go through each one unless it finds a match then it stops, or you stop it manually ```(ctrl + c)``` 
 
-To speed up the process and make the demo more efficient, I manually stopped the Hydra session, and used a smaller, truncated version of the wordlist as shown in the next sub-step. 
+To speed up the process and make the demo more efficient, I stopped the Hydra session, and used a smaller, truncated version of the wordlist as shown in the next sub-step. 
 
 ----
 
-#### 3.2 Created Smaller Version Of The Wordlist rockyou.txt
+#### 3.2 ✅ Create A Smaller Version Of The Wordlist rockyou.txt
 
-First, I made a working copy of the default rockyou.txt wordlist via Kali terminal:
+To create a smaller version of rockyou.txt wordlist, a working copy of the default rockyou.txt wordlist is made first. This was achieved by running:
 
 ```
 cp /usr/share/wordlists/rockyou.txt ~/shortlist.txt
 ```
 
-I then extracted the first 1000 passwords to create a lightweight list for quick testing:
+I then extracted the first 1000 passwords to create a lightweight list for quick testing by executing:
 
 ```
 head -n 1000 ~/shortlist.txt > ~/ftp-demo-list.txt
 ```
-As shown in the screenshot below:
-
-![Screenshot On Creating A Smaller Version Of The Wordlist rockyou.txt](images/wordlist1000.png)
-*Screenshot on creating a smaller version of rockyou.txt wordlist to be used for brute-force attack.*
 
 The ```ftp-demo-list.txt``` contains only the first 1000 passwords from that list.
 
+As shown in the screenshot below:
+
+![Screenshot On Creating A Smaller Version Of The Wordlist rockyou.txt](images/wordlist1000.png)
+*Screenshot on creating a smaller version of rockyou.txt wordlist to be used for the brute-force attack.*
+
 Using a shorter wordlist matters because it ensures faster execution, and supports resource-friendliness as it uses lower CPU and memory during the attack.
 
-Lastly, I executed Hydra to brute force the FTP login using a specific username (msfadmin - a known default credentials for Metaspoiltable 2) and the new, shorter password list:
+Lastly, I executed Hydra to brute force the FTP login using a specific username (msfadmin - a known default credentials for Metaspoiltable 2) and the new, shorter password list created:
 
 ```
 hydra -l msfadmin -P ~/ftp-demo-list.txt ftp://192.168.56.102
@@ -263,7 +263,7 @@ hydra -l msfadmin -P ~/ftp-demo-list.txt ftp://192.168.56.102
 *Screenshot on re-running Hydra to brute-force FTP login using username `msfadmin`.*
 
 
-The illustration above shows that there was ```0 valid password found```. None of the 1000 passwords matched the credentials for user msfadmin on the target system.
+The illustration above shows that there was ```0 valid password found``` after re-running Hydra with the shorter password list. None of the 1000 passwords matched the credentials for user msfadmin on the target system.
 
 This result highlights a realistic limitation of brute force attacks: success is heavily dependent on the quality and relevance of the wordlist.
 
@@ -273,7 +273,7 @@ I thought wise to customize a wordlist based on the username msfadmin as illustr
 
 ----
 
-#### 3.3 Creating Custom Wordlists for Brute-Force Attack
+#### 3.3 ✅ Creating Custom Wordlists for Brute-Force Attack
 
 The default credentials for Metasploitable 2 are usually:
 
@@ -281,7 +281,9 @@ The default credentials for Metasploitable 2 are usually:
 
 `Password: msfadmin`
 
-To simulate a more targeted brute-force attack, I created custom wordlists for both usernames and passwords. These smaller, curated lists are often used in real-world scenarios where an attacker has prior knowledge or educated guesses about potential credentials, making the attack more efficient than using massive dictionaries like rockyou.txt. This was done by running:
+To simulate a more targeted brute-force attack, I created custom wordlists for both usernames and passwords. These smaller, curated lists are often used in real-world scenarios where an attacker has prior knowledge or educated guesses about potential credentials, making the attack more efficient than using massive dictionaries like rockyou.txt. 
+
+This was done by running:
 
 ```
 echo -e "msfadmin\nftp\nanonymous" > ~/usernames.txt
@@ -364,29 +366,28 @@ This refined attack was also captured in Wireshark to observe how fewer, targete
 
 ----
 
-#### 3.4 FTP Login And Data Exfiltration
+#### 3.4 ✅ FTP Login And Data Exfiltration
 
-Using any of the valid credentials from the brute force attack e.g., ```msfadmin:msfadmin```, I logged into the FTP server to simulate post-exploitation activities, while capturing the activity in Wireshark for analysis.
+Using any of the valid credentials from the brute force attack e.g., ```msfadmin:msfadmin```, I needed to log into the FTP server to simulate post-exploitation activities, while capturing the activity in Wireshark for analysis.
 
 ----
 
 #### 3.4.1 🛠 Create dummy files on Kali
 
-I created and used dummy files to simulate common post-exploitation tasks such as uploading a malicious file to a target machine and exfiltrating sensitive data, by running the following in Kali terminal:
+I first created and used dummy files to simulate common post-exploitation tasks such as uploading a malicious file to a target machine and exfiltrating sensitive data, by running the following in Kali terminal:
 
 ```
 echo "This is a secret payload." > secret.txt
 
 echo "Confidential report goes here." > confidential.pdf
 ```
+1. secret.txt - represents a malicious payload or script.
+2. confidential.pdf - represents sensitive information that the attacker machine (Kali) might try to exfiltrate.
 
 As illustrated in the screenshot below:
 
 ![Screenshot On Creating Dummy Files On Kali](images/dummyFiles.png)
 *Screenshot on creating dummy files via Kali terminal to be used for exfiltration purposes.*
-
-1. secret.txt – Represents a malicious payload or script.
-2. confidential.pdf – Represents sensitive information that an attacker machine (Kali) might try to exfiltrate.
 
 -----
 
@@ -422,11 +423,11 @@ put secret.txt
 
 From the screenshot above, 
 
-1. 229 Entering Extended Passive Mode (|||33265|) - The server responds that it is switching to Extended Passive Mode (EPSV). The server opens a port `33265`, and the client connects to that server port to send the file.
+1. 229 Entering Extended Passive Mode ( |||33265| ) - The server responds that it is switching to Extended Passive Mode (EPSV). The server opens a port `33265`, and the client connects to that server port to send the file.
 
 2. 150 Ok to send data - The server is now preparing to transfer the file.
 
-3. 226 Transfer complete - The file transfer has finished successfully. All data has been sent or received, and the connection for the transfer is being closed.
+3. 226 Transfer complete - The file transfer has finished successfully. All data has been received, and the connection for the transfer is being closed.
 
 -----
 
@@ -440,18 +441,16 @@ get confidential.pdf
 
 The screenshot below illustrates the data exfiltration process:
 
-![Screenshot On Data Exfiltration Success](images/getConfidential.png). 
+![Screenshot On Data Exfiltration Success](images/getConfidential.png)
 *Screenshot on FTP shell showing a successful getConfidential.pdf file transfer successful data exfiltration.*
 
-Breakdown:
+From the screenshot above:
 
-1. 229 Entering Extended Passive Mode (|||53459|) - The server responds that it is switching to Extended Passive Mode (EPSV).The server opens a port `53459`, and the client connects to that server port.
+1. 229 Entering Extended Passive Mode ( |||53459| ) - The server responds that it is switching to Extended Passive Mode (EPSV). The server opens a port `53459`, and the client connects to that server port.
 
 2. 150 Opening BINARY mode... — The server began transferring the file in binary mode.
 
 3. 226 Transfer complete. — The file download finished successfully.
-
-The data exfiltration was successful. This simulates how an attacker might steal files after gaining access to a system—by quietly pulling sensitive data through an unsecure protocol like FTP.
 
 After downloading the file, the FTP connection was properly closed:
 
@@ -460,6 +459,8 @@ exit
 ```
 
 This shows ```Goodbye```, ends the session and returns you to the normal Kali shell.
+
+The data exfiltration was successful. This simulates how an attacker might steal files after gaining access to a system-by quietly pulling sensitive data through an unsecure protocol like FTP.
 
 --- 
 
@@ -500,16 +501,17 @@ Loaded the saved file `bruteForce.pcapng` as illustrated in the screenshot below
 ![Screenshot On bruteForce.pcapng](images/loadedPCAP.png)
 *Screenshot on loading bruteforce.pcapng file to open in Wireshark.*
 
-A high volume of TCP traffic was observed between:
+From the screenshot above, high volume of TCP traffic was observed between:
 
 - Attacker (Kali): 192.168.56.101
 
 - Target (Metasploitable): 192.168.56.102
 
 ---
+
 #### 5.2 🧵 Filtering FTP Traffic
 
-Applied Wireshark filter:
+To filter FTP traffic, the following Wireshark filter was applied:
 
 ```
 ftp || ftp-data
@@ -539,7 +541,7 @@ This confirmed automated brute-force behavior by the frequency and sequence of l
 
 #### 5.4 ✅ Identifying Successful Logins
 
-Applied filter:
+To identify successful logins, the following filter was applied:
 
 ```
 ftp.response.code == 230
@@ -575,7 +577,7 @@ ftp.request.command == "STOR"
 ![Screenshot On Evidence Of File Transfer](images/evidenceFileTransfer.png)
 *Wireshark capture with `ftp.request.command == "STOR"` showing evidence of file transfer.*
 
-Found the following activities:
+From the filter applied above, the following activities were found:
 
 - STOR secret.txt – file upload from the attacker machine Kali to target Metaspoiltable 2.
 
@@ -585,11 +587,11 @@ This capture reveals potentially unauthorized file uploads over an insecure prot
 
 #### 🔍 Inferences:
 
-Sensitive File Transfers: The filenames ```secret.txt``` and ```confidential.pdf``` suggest the file contents might be sensitive. This could be a red flag in a security audit.
+Sensitive File Transfers - The filenames ```secret.txt``` and ```confidential.pdf``` suggest the file contents might be sensitive. This could be a red flag in a security audit.
 
-Unencrypted Protocol: FTP is being used, which transmits data in cleartext, including file contents, commands, and possibly credentials. This poses a major security risk, especially for sensitive files.
+Unencrypted Protocol - FTP is being used, which transmits data in cleartext, including file contents, commands, and possibly credentials. This poses a major security risk, especially for sensitive files.
 
-Potential Insider Threat or Unauthorized Activity: If this packet capture was taken during an investigation such as a brute-force attempt, these uploads could indicate data exfiltration attempts.
+Potential Insider Threat or Unauthorized Activity - If this packet capture was taken during an investigation such as a brute-force attempt, these uploads could indicate data exfiltration attempts.
 
 #### 🛡️ Security Concerns Highlighted:
 
@@ -615,7 +617,7 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
    - In the popup:
      - **Flow type**: Select `TCP flow`.
      - **Direction**: `All packets`.
-     - **Show**: You can leave everything checked for a comprehensive view, or uncheck `Duplicate ACKs` and `Keep Alives` for cleaner output.
+     - **Show**: I left everything checked for a comprehensive view.
 
 3. **Click "OK"**:
    - Wireshark will now generate a sequence diagram showing communication between the attacker and the FTP server.
@@ -676,7 +678,7 @@ Using the Flow Graph makes it easier to present the attack narrative in incident
 
 ## 📘 Conclusion
 
-This project successfully demonstrated the process of capturing and analyzing network traffic to detect and investigate a brute-force FTP attack. By utilizing tools like Wireshark and Hydra, we were able to identify unauthorized access attempts, successful logins, and subsequent file transfer activities. The analysis provided valuable insights into the attack's methodology and highlighted the importance of continuous network monitoring and analysis in cybersecurity.
+This project successfully demonstrated the process of capturing and analyzing network traffic to detect and investigate a brute-force FTP attack. By utilizing tools like Wireshark and Hydra, I was able to identify unauthorized access attempts, successful logins, and subsequent file transfer activities. The analysis provided valuable insights into the attack's methodology and highlighted the importance of continuous network monitoring and analysis in cybersecurity.
 
 ### 🔍 Key Findings
 
@@ -772,4 +774,9 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   ```
 
 ---
+<<<<<<< HEAD
 > *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to home page.*
+=======
+
+> *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to Portfolio.*
+>>>>>>> ff69718 (proof reading on README.md)
