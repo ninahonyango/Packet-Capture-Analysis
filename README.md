@@ -774,9 +774,5 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   ```
 
 ---
-<<<<<<< HEAD
-> *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to home page.*
-=======
 
-> *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to Portfolio.*
->>>>>>> ff69718 (proof reading on README.md)
+> *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to home page.*
