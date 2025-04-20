@@ -74,7 +74,7 @@ To ensure secure and isolated communication between the attacker and target mach
 
 #### 🔎 Verifying Connectivity:
 
-Once both virtual machines were configured and running, connectivity was verified using the Ping command from Kali terminal:
+Once both virtual machines were configured and running, connectivity was verified by pinging Metaspoitable2 IP from Kali terminal:
 
 ```
 ping 192.168.56.102
