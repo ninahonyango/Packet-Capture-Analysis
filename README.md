@@ -12,11 +12,11 @@ In this hands-on project, I simulated a brute-force attack on an FTP server and 
 
 - **Metasploitable 2** (Victim VM).
 
-- **Wireshark**: For capturing network traffic and analyzing the packets.
+- **FTP Service**: A vulnerable FTP service running on Metasploitable 2.
 
 - **Hydra**: For conducting the brute-force attack on the FTP service.
 
-- **FTP Service**: A vulnerable FTP service running on Metasploitable 2.
+- **Wireshark**: For capturing network traffic and analyzing the packets.
 
 ---
 
@@ -110,7 +110,7 @@ I used ```sudo``` because Wireshark needs root privileges to capture packets, wh
 
 I then selected the appropriate network interface ```eth0``` used to communicate with the Metasploitable 2 VM.
 
-For this project, I started capturing on interface ```eth0``` as this is how Kali was set up. I then clicked the Start Capture button (blue shark fin icon) to start the capture.
+For this project, I started capturing on interface ```eth0``` as this is how Kali was set up. I then clicked the Start Capture button (blue shark fin icon) at the top-left to start the capture.
 
 As illustrated below, Wireshark was ready and waiting to record all incoming and outgoing network packets:
 
@@ -121,7 +121,7 @@ As illustrated below, Wireshark was ready and waiting to record all incoming and
 
 #### 2.2 Testing the Correct Network Interface in Wireshark.
 
-After launching Wireshark, selecting the correct network interface and starting the packet capture, I tested the network interface chosen by pinging Metaspoiltable target IP in Kali terminal:
+After launching Wireshark, selecting the correct network interface and starting the packet capture, I tested the network interface by pinging Metaspoiltable target IP in Kali terminal:
 
 ```
 ping 192.168.56.102
@@ -751,12 +751,15 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   | Metasploitable2       | `192.168.56.102`       |
 
 
-  #### D. PCAP File
+  #### C. PCAP File
 
-  Download Link: bruteForce.pcapng
+  Download Link: [bruteForce.pcapng](https://github.com/ninahonyango/Packet-Capture-Analysis/blob/main/bruteForce.pcapng)
+  
+  #### D. Attack Timeline File
 
+  Download Link: [bruteAttackTimeline.pdf](https://github.com/ninahonyango/Packet-Capture-Analysis/blob/main/bruteAttackTimeline.pdf)
 
-  #### C. Sample Commands
+  #### E. Sample Commands
 
 - **Hydra Command**:
   ```
