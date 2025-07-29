@@ -460,9 +460,9 @@ After downloading the file, the FTP connection was properly closed:
 exit 
 ```
 
-This shows ```Goodbye```, ends the session and returns you to the normal Kali shell.
+This shows ```Goodbye```, ends the session and returns to the normal Kali shell.
 
-The data exfiltration was successful. This simulates how an attacker might steal files after gaining access to a system-by quietly pulling sensitive data through an unsecure protocol like FTP.
+The data exfiltration was successful, simulating how an attacker might steal files after gaining access to a system and quietly pulling sensitive data through an unsecure protocol such as FTP.
 
 --- 
 
@@ -488,7 +488,7 @@ It is important to note that wireshark kept running all through the attack, so a
 
 ### Step 5: 🔍 Analyzing the PCAP File
 
-The goal in this step is to analyze the captured traffic in the saved `bruteForce.pcapng` file to identify suspicious behavior, brute-force login attempts, successful authentications, and potential post-exploitation activities such as file transfer - all captured during the simulated brute force.
+The goal in this step is to analyze the captured traffic in the saved `bruteForce.pcapng` file to identify suspicious behavior, brute-force login attempts, successful authentications, and potential post-exploitation activities such as file transfer.
 
 ---
 
@@ -507,7 +507,7 @@ From the screenshot above, high volume of TCP traffic was observed between:
 
 - Attacker (Kali): 192.168.56.101
 
-- Target (Metasploitable): 192.168.56.102
+- Target (Metasploitable2): 192.168.56.102
 
 ---
 
