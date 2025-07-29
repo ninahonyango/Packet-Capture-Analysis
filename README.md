@@ -140,9 +140,7 @@ As shown below:
 
 - ICMP Echo Reply - from Metasploitable2 back to Kali.
 
-2. These ICMP packets related to the ping request `ping 192.168.56.102` which verified proper network adapter configuration, network connectivity between Kali Linux and Metasploitable2 VMs, and that Wireshark was correctly capturing the traffic at the network interface level.
-
-This confirms that the interface is actively capturing traffic to/from the target.
+2. These ICMP packets related to the ping request `ping 192.168.56.102` which verified proper network adapter configuration, network connectivity between Kali Linux and Metasploitable2 VMs, and that Wireshark was correctly and actively capturing the traffic at the network interface level.
 
 📌 Note:
 
