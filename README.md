@@ -169,15 +169,15 @@ hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ftp://192.168.56.102
 
 📁 Breakdown of the command above:
 
-1. ```hydra``` invokes the Hydra tool, which is a fast and flexible password brute-forcer.
+1. ```hydra``` - invokes the Hydra tool, which is a fast and flexible password brute-forcer.
 
-2. ```-l msfadmin``` specifies the username to use/try - in this case, msfadmin.
+2. ```-l msfadmin``` - specifies the username to use/try - in this case, msfadmin.
 
 3. ```-P /usr/share/wordlists/rockyou.txt``` - this is the path to the password list (wordlist) which tells Hydra to use the RockYou wordlist to try against that username msfadmin (rockyou.txt is a common wordlist of weak passwords) -P is for password file (uppercase).
 
-4. ```ftp://192.168.56.102``` specifies the protocol (ftp) and the target IP address (192.168.56.102) to attack.
+4. ```ftp://192.168.56.102``` - specifies the protocol (ftp) and the target IP address (192.168.56.102) to attack.
 
-Hydra will attempt to brute-force FTP login to the machine at target IP 192.168.56.102, trying the username `msfadmin` with every password in the RockYou wordlist, as shown in the screenshot below:
+Hydra will attempt to brute-force FTP login at target Metasploitable2 IP 192.168.56.102, trying the username `msfadmin` with every password in the RockYou wordlist, as shown in the screenshot below:
 
 ![Screenshot on Launching Hydra to Brute-Force FTP Login](images/hydra.png)
 *Screenshot on launching Hydra in Kali terminal to brute-force FTP login.*
