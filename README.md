@@ -173,7 +173,7 @@ hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ftp://192.168.56.102
 
 2. ```-l msfadmin``` - specifies the username to use/try - in this case, msfadmin.
 
-3. ```-P /usr/share/wordlists/rockyou.txt``` - this is the path to the password list (wordlist) which tells Hydra to use the RockYou wordlist to try against that username msfadmin (rockyou.txt is a common wordlist of weak passwords) -P is for password file (uppercase).
+3. ```-P /usr/share/wordlists/rockyou.txt``` - this is the path to the password list (wordlist) which tells Hydra to use the RockYou wordlist to try against the username msfadmin. -P is for password file. (rockyou.txt is a common wordlist of weak passwords).
 
 4. ```ftp://192.168.56.102``` - specifies the protocol (ftp) and the target IP address (192.168.56.102) to attack.
 
