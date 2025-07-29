@@ -74,7 +74,7 @@ To ensure secure and isolated communication between the attacker and target mach
 
 #### 🔎 Verifying Connectivity:
 
-Once both virtual machines were configured and running, connectivity was verified by pinging Metaspoitable2 IP from Kali terminal:
+Once both virtual machines were configured and running, connectivity was verified by pinging Metasploitable2 IP from Kali terminal:
 
 ```
 ping 192.168.56.102
@@ -85,7 +85,7 @@ ping 192.168.56.102
 The successful response from Kali terminal as shown in the screenshot below, confirmed that the virtual environment was properly isolated and communication between the VMs was working as expected.
 
 ![Check Network Connectivity Screenshot on the Setup](images/pingConnectivity.png)
-*Kali terminal output showing network connection with Metaspoiltable2 VM.*
+*Kali terminal output showing network connection with Metasploitable2 VM.*
 
 ---
 
@@ -121,7 +121,7 @@ As illustrated below, Wireshark was ready and waiting to record all incoming and
 
 #### 2.2 Testing the Correct Network Interface in Wireshark.
 
-After launching Wireshark, selecting the correct network interface and starting the packet capture, I tested the network interface by pinging Metaspoiltable target IP in Kali terminal:
+After launching Wireshark, selecting the correct network interface and starting the packet capture, I tested the network interface by pinging Metasploitable target IP in Kali terminal:
 
 ```
 ping 192.168.56.102
@@ -134,15 +134,19 @@ As shown below:
 
 📁 Breakdown:
 
-1. With Wireshark side by side to the Kali terminal as illustrated in the screenshot, Wireshark showed ICMP packets.
+1. With Wireshark side by side to the Kali terminal as illustrated in the screenshot, Wireshark showed ICMP (Internet Control Message Protocol) packets:
 
-2. These packets related to the ping request `ping 192.168.56.102` which verified that the correct interface was selected.
+- ICMP Echo Request from Kali to Metasploitable2.
+
+- ICMP Echo Reply from Metasploitable2 back to Kali.
+
+2. These ICMP packets related to the ping request `ping 192.168.56.102` which verified proper network adapter configuration, network connectivity the between attacker and target VMs, and that Wireshark was correctly capturing the traffic at the network interface level.
 
 This confirms that the interface is actively capturing traffic to/from the target.
 
 📌 Note:
 
-Keep wireshark up and running all through the attack so as to capture and record all traffic, including authentication attempts, login credentials, and file transfers for analysis in the later stages.
+Wireshark kept running all through the attack so as to capture and record all traffic, including authentication attempts, login credentials, and file transfers for analysis in the later stages.
 
 This step was essential to simulate and observe how real-world network attacks can be identified through packet-level inspection, making it a core part of analysis phase in the later stages.
 
@@ -167,11 +171,11 @@ hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ftp://192.168.56.102
 
 📁 Breakdown of the command above:
 
-1. ```hydra``` invokes the Hydra tool.
+1. ```hydra``` invokes the Hydra tool, which is a fast and flexible password brute-forcer.
 
-2. ```-l msfadmin``` specifies the username to use - in this case, msfadmin.
+2. ```-l msfadmin``` specifies the username to use/try - in this case, msfadmin.
 
-3. ```-P /usr/share/wordlists/rockyou.txt``` tells Hydra to use the RockYou wordlist as the list of passwords to try. -P is for password file (uppercase).
+3. ```-P /usr/share/wordlists/rockyou.txt``` - this is the path to the password list (wordlist) which tells Hydra to use the RockYou wordlist to try against that username msfadmin (rockyou.txt is a common wordlist of weak passwords) -P is for password file (uppercase).
 
 4. ```ftp://192.168.56.102``` specifies the protocol (ftp) and the target IP address (192.168.56.102) to attack.
 
@@ -222,7 +226,7 @@ hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ftp://192.168.56.102
 
 📌 Here is why Hydra session took long to finish:
 
-When demonstrating brute force attacks for educational or portfolio purposes, using the full rockyou.txt wordlist can be time-consuming and unnecessary. 
+When demonstrating brute force attacks for educational purposes, using the full rockyou.txt wordlist can be time-consuming and unnecessary. 
 
 The ```rockyou.txt``` is classic, but very huge. It has 14+ million passwords, and Hydra will go through each one unless it finds a match then it stops, or you stop it manually ```(ctrl + c)``` 
 
@@ -253,7 +257,7 @@ As shown in the screenshot below:
 
 Using a shorter wordlist matters because it ensures faster execution, and supports resource-friendliness as it uses lower CPU and memory during the attack.
 
-Lastly, I executed Hydra to brute force the FTP login using a specific username (msfadmin - a known default credentials for Metaspoiltable 2) and the new, shorter password list created:
+Lastly, I executed Hydra to brute force the FTP login using a specific username (msfadmin - a known default credentials for Metasploitable2) and the new, shorter password list created:
 
 ```
 hydra -l msfadmin -P ~/ftp-demo-list.txt ftp://192.168.56.102
@@ -275,13 +279,13 @@ I thought wise to customize a wordlist based on the username msfadmin as illustr
 
 #### 3.3 ✅ Creating Custom Wordlists for Brute-Force Attack
 
-The default credentials for Metasploitable 2 are usually:
+The default credentials for Metasploitable2 are usually:
 
 `Username: msfadmin`
 
 `Password: msfadmin`
 
-To simulate a more targeted brute-force attack, I created custom wordlists for both usernames and passwords. These smaller, curated lists are often used in real-world scenarios where an attacker has prior knowledge or educated guesses about potential credentials, making the attack more efficient than using massive dictionaries like rockyou.txt. 
+To simulate a more targeted brute-force attack, I created custom wordlists for both usernames and passwords. These smaller, curated lists are often used in real-world scenarios where an attacker has prior knowledge or guesses about potential credentials, making the attack more efficient than using massive dictionaries such as the rockyou.txt. 
 
 This was done by running:
 
@@ -322,11 +326,11 @@ The ```-e``` flag with echo enables interpretation of backslash-escaped characte
 
 These custom lists were crafted based on:
 
-1. Commonly known default credentials for Metasploitable 2.
+1. Commonly known default credentials for Metasploitable2.
 
 2. Frequently used weak passwords.
 
-3. Service-specific usernames (like ftp and anonymous).
+3. Service-specific usernames (ftp and anonymous).
 
 By using smaller lists, I was able to test a focused brute-force scenario that simulates real-world credential stuffing or insider attacks.
 
@@ -391,9 +395,9 @@ As illustrated in the screenshot below:
 
 -----
 
-#### 3.4.2 📤 Login to FTP and upload payload to the target Metaspoitable 2
+#### 3.4.2 📤 Login to FTP and upload payload to the target Metasploitable2
 
-The secret.txt file was uploaded to the target machine (Metasploitable 2) to simulate a payload drop. This was done using FTP as we also know the credentials from the brute-force successful attack. 
+The secret.txt file was uploaded to the target machine (Metasploitable2) to simulate a payload drop. This was done using FTP as we also know the credentials from the brute-force successful attack. 
 
 To connect to FTP on Metaspoiltable, the following command was executed:
 
@@ -431,7 +435,7 @@ From the screenshot above,
 
 -----
 
-#### 3.4.3 📥 Simulate Data Exfiltration from Metasploitable
+#### 3.4.3 📥 Simulate Data Exfiltration from Metasploitable2
 
 With an active FTP session to the Metasploitable machine still running, I simulated data exfiltration by downloading a sensitive file (confidential.pdf) from the target system Metaspoiltable 2 by executing: 
 
