@@ -522,7 +522,7 @@ ftp || ftp-data
 This isolated all FTP command and data packets as illustrated below:
 
 ![Screenshot On FTP Filter](images/filterFTP.png)
-*Wireshark capture showing FTP filter to isolate FTP traffic.*
+*Wireshark packet capture showing FTP filter to isolate FTP traffic.*
 
 This analyzes ftp sessions end-to-end, from login to data movement.
 
@@ -535,7 +535,16 @@ From the ```ftp || ftp-data``` filter, repetitive `USER` and `PASS` commands was
 Sample packets from the PCAP:
 
 ![Screenshot On Brute Force Attempts](images/autoBruteForce.png)
-*Wireshark capture showing the FTP login process. The repetitive `USER` and `PASS` commands indicate brute force attempts.*
+*Wireshark packet capture showing the FTP login process. The repetitive `USER` and `PASS` commands indicate brute force attempts.*
+
+To filter brute-force traffic, the following filter was used:
+
+```
+ftp.request.command == "PASS"
+```
+
+![Screenshot on Brute Force Attempts](images/autoBruteForce2.png)
+*Wireshark packet capture showing brute-force attempts using ftp.request.command == "PASS" filter. This shows every password sent to Hydra to the Metasploitable2 server.*
 
 This confirmed automated brute-force behavior by the frequency and sequence of login attempts.
 
@@ -558,17 +567,34 @@ This analysis identified all successful FTP login attempts using the response co
 
 ⚠️ Security Concerns Highlighed:
 
-1. Brute Force Pattern Detected - Multiple successful logins occurring within milliseconds indicate that a brute-force or scripted login attack might have been used to guess valid credentials.
+1. Brute Force Pattern Detected - Multiple successful logins occurring within milliseconds indicate that a brute-force login attack might have been used to guess valid credentials.
 
-2. Insecure Protocol Usage - FTP does not encrypt traffic, meaning credentials were likely sent in plaintext and could be intercepted which allows credential sniffing.
+2. Insecure Protocol Usage - FTP does not encrypt traffic. This means that credentials were sent in plaintext as seen in the packet capture. This led to credential sniffing.
 
-3. Same Source Repeatedly Logging In - All logins originate from 192.168.56.102 attempting access on 192.168.56.101.
+3. Same Source Repeatedly Logging In - All logins originate from 192.168.56.102, the attacker machine attempting access on 192.168.56.101, the target.
 
 ---
 
 #### 5.5 📂 Evidence of File Transfer
 
 This analysis focuses on identifying file upload operations over the FTP protocol. 
+
+![Screenshot On Evidence of EPSV reponse](images/EPSVresponse.png)
+*Wireshark packet capture of an FTP EPSV reponse.*
+
+The screenshot above, shows a packet with an FTP Extended Passive Mode (EPSV) response. The client (Kali) sent an EPSV command to Metasploitable's FTP server. The server responded with `229 Entering Extended Passive Mode (|||20605|)`. This happens because FTP needs two connections:
+
+- Control connection (TCP port 21) – for login, commands, etc.
+
+- Data connection – for file transfers (LIST, STOR, RETR)
+
+In passive mode:
+
+- The FTP server tells the client Kali: “Hey, open a new data connection to me on port 20605”
+
+- 20605 is the random port the server opened for the data transfer.
+
+The client Kali then connects to port 20605, followed by a STOR, RETR or LIST command, then actual data transfer happens as seen in the subsequent packets in the same screenshot.
 
 Filter used:
 
@@ -691,6 +717,8 @@ This project successfully demonstrated the process of capturing and analyzing ne
 - **File Transfer Activities**: Post-authentication, files like `secret.txt` were uploaded, and attempts were made to download `confidential.pdf`, which failed due to file access issues.
 
 - **Attack Timeline**: The flow of the attack—from initial access attempts to file transfer activities—was effectively visualized using Wireshark's Flow Graph feature.
+
+- **Attack Summary**: Attack Summary: A brute-force attack was executed using Hydra targeting the FTP service on Metasploitable2. The attacker (192.168.56.101) attempted multiple logins using the username msfadmin and a password wordlist. Wireshark revealed a successful login using the password msfadmin, followed by manual FTP activity including file transfers (RETR, STOR). All traffic was unencrypted, exposing credentials and data in transit.
 
 ### 🧠 Key Takeaways
 
