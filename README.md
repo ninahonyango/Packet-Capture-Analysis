@@ -716,7 +716,7 @@ This project successfully demonstrated the process of capturing and analyzing ne
 
 - **File Transfer Activities**: Post-authentication, files like `secret.txt` were uploaded, and attempts were made to download `confidential.pdf`, which failed due to file access issues.
 
-- **Attack Timeline**: The flow of the attack—from initial access attempts to file transfer activities—was effectively visualized using Wireshark's Flow Graph feature.
+- **Attack Timeline**: The flow of the attack from initial access attempts to file transfer activities, was effectively visualized using Wireshark's Flow Graph feature.
 
 - **Attack Summary**: A brute-force attack was executed using Hydra targeting the FTP service on Metasploitable2 of IP 192.168.56.102. The attacker machine Kali of IP 192.168.56.101 attempted multiple logins using the username `msfadmin` and a password wordlist. Wireshark revealed a successful login using the password `msfadmin`, followed by manual FTP file transfers (RETR, STOR). All traffic was unencrypted, exposing credentials and data in transit.
 
