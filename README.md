@@ -1,6 +1,4 @@
-# 🔐 Packet Capture and Analysis of an FTP Brute-Force Attack with Data Exfiltration
-
-#  ~P FTP Brute-Force Attack Simulation With Data Exfiltration and Network Forensics Using Wireshark
+# 🔐 FTP Brute-Force Attack Simulation With Data Exfiltration and Network Forensics Using Wireshark
 
 ## 🧾 Project Overview
 
