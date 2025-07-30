@@ -544,7 +544,7 @@ ftp.request.command == "PASS"
 ```
 
 ![Screenshot on Brute Force Attempts](images/autoBruteForce2.png)
-*Wireshark packet capture showing brute-force attempts using ftp.request.command == "PASS" filter. This shows every password sent to Hydra to the Metasploitable2 server.*
+*Wireshark packet capture showing brute-force attempts using ftp.request.command == "PASS" filter, showing every password sent to Hydra to the Metasploitable2 server.*
 
 This confirmed automated brute-force behavior by the frequency and sequence of login attempts.
 
