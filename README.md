@@ -1,5 +1,7 @@
 # 🔐 Packet Capture and Analysis of an FTP Brute-Force Attack with Data Exfiltration
 
+#  ~P FTP Brute-Force Attack Simulation With Data Exfiltration and Network Forensics Using Wireshark
+
 ## 🧾 Project Overview
 
 In this hands-on project, I simulated a brute-force attack on an FTP server and captured the network traffic using Wireshark to analyze key attack vectors and detect signs of data exfiltration. The project was designed to help me understand common attack techniques, how to detect them, and the importance of proper network traffic analysis for threat detection.
