@@ -781,15 +781,7 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
   | Metasploitable2       | `192.168.56.102`       |
 
 
-  #### C. PCAP File
-
-  Download Link: [bruteForce.pcapng](https://github.com/ninahonyango/Packet-Capture-Analysis/blob/main/bruteForce.pcapng)
-  
-  #### D. Attack Timeline File
-
-  Download Link: [bruteAttackTimeline.pdf](https://github.com/ninahonyango/Packet-Capture-Analysis/blob/main/bruteAttackTimeline.pdf)
-
-  #### E. Sample Commands
+  #### C. Sample Commands
 
 - **Hydra Command**:
   ```
