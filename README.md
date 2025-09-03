@@ -97,14 +97,9 @@ To monitor and analyze the network activity associated with the simulated brute-
 sudo wireshark 
 ```
 
-"sudo" was used because Wireshark needs root privileges to capture packets, which prompted password for user "kali" as illustrated in frame 1 of the screenshot below. After submitting the correct password, wireshark launched as seen in frame 2: 
+"sudo" was used because Wireshark needs root privileges to capture packets, which prompted password for user "kali".
 
-![Screenshot on the Right Network Interface Wireshark Selection](images/wiresharkInterface2.png)
-*Screenshot on launching Wireshark in Frame 1, and Wireshark automatically launching thereafter in Frame 2.*
-
-I then selected the appropriate network interface "eth0" used to communicate with the Metasploitable 2 VM.
-
-I then clicked the Start Capture button (blue shark fin icon) at the top-left to start the capture.
+I then selected the appropriate network interface "eth0" used to communicate with the Metasploitable 2 VM and clicked the Start Capture button (blue shark fin icon) at the top-left to start the capture.
 
 Wireshark was ready and waiting to record all incoming and outgoing network packets.
 
@@ -123,7 +118,7 @@ ping 192.168.56.102
 
 As shown above:
 
-1. With Wireshark side by side to the Kali terminal, Wireshark showed ICMP (Internet Control Message Protocol) packets:
+1. Wireshark showed ICMP (Internet Control Message Protocol) packets:
 
 - ICMP Echo Request - from Kali to Metasploitable2.
 
@@ -701,8 +696,9 @@ To mitigate and prevent brute-force attacks and unauthorized access, the followi
 8. **Regular Security Assessments**  
    Conduct vulnerability scans and penetration testing to identify weak points in your authentication mechanisms.
 
----
 
 > *Click [here](https://github.com/ninahonyango/Packet-Capture-Analysis/blob/main/FTPBrute-forceCybersecurityInvestigationReport.pdf) to view the FTP Brute-force Investigation Report.*
+
+---
 
 > *Click [here](https://github.com/ninahonyango/Elizabeth_P_A_Onyango) to go back to Portfolio.*
